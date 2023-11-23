@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react';
+import axios from 'axios';
+import { useSearchParams } from 'react-router-dom';
 
-function App() {
+const App = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const authenticate = async () => {
+    const code = searchParams.get('code');
+    axios
+      .post('http://localhost:5000/authenticate', { code })
+      .then((response) => {
+        console.log('Server response:', response.data);
+      })
+      .catch((error) => {
+        console.error('Error sending code to the server:', error);
+      });
+  };
+  useEffect(() => {
+    authenticate();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>React App</h1>
     </div>
   );
-}
+};
 
 export default App;
