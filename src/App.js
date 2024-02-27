@@ -7,8 +7,9 @@ const App = () => {
 
   const authenticate = async () => {
     const code = searchParams.get('code');
+    console.log(searchParams);
     axios
-      .post('http://localhost:5000/authenticate', { code })
+      .post('https://4ce2eof4f3.execute-api.ap-northeast-2.amazonaws.com/authenticate', { code })
       .then((response) => {
         console.log('Server response:', response.data);
       })
